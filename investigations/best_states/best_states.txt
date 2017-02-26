@@ -1,0 +1,49 @@
+-- Best States SQL query
+
+-- What states are models of high-quality care?
+
+-- Tables to use: procedures_detail, hospital_edit
+
+-- Selection Criteria:
+
+-- Grouping by State, we want to see the highest average scores across all of their procedures
+-- from every hospital within that state. Not just the average of all hospitals!
+
+-- The number of different procedures for each state isn't as valuable of a metric at the state level
+-- simply due to population density and funding that may not be available for complex procedures in that state.
+-- This constraint was not included. 
+
+-- An additional constraint on total score variance was not used here, as in the majority of states
+-- the variance appears to be near 100, suggesting there is at least one hospital with very poor ratings
+-- in that state, despite the high overall average we are seeing. 
+
+-- Scores relating to the emergency department were excluded from aggregation, as they went beyond the standard 0-100
+-- scale. 
+
+-- Focusing on only procedure care scores, not readmission scores as these are difficult 
+-- to compare to one another because high procedure care scores are good while low 
+-- readmissions scores (score / denominator) are good. A multi-filter could have occured
+-- between these two metrics, however it was decided not to pursue this for this assignment.
+
+-- Had to convert all of our number columns to INT before aggregating, used the cast() function.
+
+
+State	No_Hospitals	Total_Score	Avg_Score	Var_Score	Count_Procedures
+DE      140     	12138   	86.7    	99      	140
+PR      253     	21844   	86.34   	100     	253
+NH      424     	36453   	85.97   	100     	424
+NJ      1600    	136544  	85.34   	100     	1600
+HI      319     	27172   	85.18   	100     	319
+FL      4291    	364726  	85.0    	100     	4291
+VT      184     	15595   	84.76   	100     	184
+ME      539     	45634   	84.66   	100     	539
+CA      7135    	602111  	84.39   	100     	7135
+CT      642     	53935   	84.01   	100     	642
+
+The states which display a consistently high quality of care amoungst all their procedures in all hospitals are:
+DE, PR, NH, NJ, HI, FL, VT, ME, CA, CT
+, sorted by average score.
+
+To note, the procedure counts for Delaware and Vermont are substantially lower than some of the other top performing states, however the 
+counts of hospitals of 140&184 suggests a large enough sample size for the central limit theorem to apply, allowing scores to 
+regress to the true mean and providing confidence in the overall state average. 

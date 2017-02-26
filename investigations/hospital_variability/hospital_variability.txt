@@ -1,0 +1,56 @@
+-- Hospital Variability SQL query
+
+-- Which procedures have the greatest variability between hospitals?
+
+-- Tables to use: procedures_detail, hospital_edit
+
+-- Selection Criteria:
+-- Grouping by Procedure, we want to see the highest variability in scores across 
+-- hospitals (there is only one score per procedure per hospital so we do not need to 
+-- aggregate at the hospital level first).
+
+-- Results were secondarily ordered by Avg_Score, to bring to the top the procedures which
+-- have some very high performers but the majority of hospitals struggle with. This highlights
+-- procedures which could be the focus for additional training to increase average scores.
+
+-- Scores relating to the emergency department were excluded from aggregation, as they went beyond the standard 0-100
+-- scale. 
+
+-- Focusing on only procedure care scores, not readmission scores as these are difficult 
+-- to compare to one another because high procedure care scores are good while low 
+-- readmissions scores (score / denominator) are good. A multi-filter could have occured
+-- between these two metrics, however it was decided not to pursue this for this assignment.
+
+-- Had to convert all of our number columns to INT before aggregating, used the cast() function.
+
+Proc_ID	No_Hospitals	Avg_Score	Var_Score	Count_Procedures	Proc_Name
+OP_20   3103    	27.5    	100     	3103    		Median Time from ED Arrival to Provider Contact for ED patients
+ED_2b   2066    	63.84   	100     	2066    		Admit Decision Time to ED Departure Time for Admitted Patients
+OP_23   899     	66.85   	100     	899     		Head CT Scan Results for Acute Ischemic Stroke or Hemorrhagic Stroke Patients who Received Head CT or MRI Scan Interpretation Within 45 Minutes of ED Arrival
+STK_4   798     	83.13   	100     	798     		Thrombolytic Therapy
+VTE_5   2281    	89.05   	100     	2281    		Venous Thromboembolism Warfarin Therapy Discharge Instructions
+VTE_1   3275    	89.06   	100     	3275    		Venous Thromboembolism Prophylaxis
+STK_8   2192    	90.65   	100     	2192    		Stroke Education
+IMM_2   3466    	91.74   	100     	3466    		Influenza Immunization
+HF_1    2717    	93.64   	100     	2717    		Discharge Instructions
+STK_1   2518    	94.5    	100     	2518    		Venous Thromboembolism (VTE) Prophylaxis
+
+The procedures which display a high variability in terms of care scores amoungst all hospitals are:
+OP_20
+ED_2b
+OP_23
+STK_4
+VTE_5
+VTE_1
+STK_8
+IMM_2
+HF_1 
+STK_1 
+, sorted by variability and then secondarily by average score.
+
+If the selection criteria for # of results were increased to 50, we would see a quick dropoff in variance from 100 for the top 
+group of procedures quickly down below 20 suggesting that there are only a small number of procedures that experience very 
+high variability in the quality of performance. 
+
+In a large group of hospitals performing a single procedure there could, by chance, be one poor performer which increases the variance 
+between max and min for that procedure, despite the overall average score for that procedure remaining high. 

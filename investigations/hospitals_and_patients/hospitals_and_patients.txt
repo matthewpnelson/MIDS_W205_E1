@@ -1,0 +1,58 @@
+-- Hospitals and Patients SQL query
+
+-- Are average scores for hospital quality or hospital procedurarl variability correlated with patient survey responses?
+
+-- Pull the survey responses for the top 10 hospitals and the hospitals completing the 
+-- top 10 most variable procedures to determine if there is any correlation.
+
+
+-- Survey Scores max out at 80
+-- Survey Consistency scores max out at 20
+
+
+
+Top Hospital Average Scores vs Survey Score
+For the top 10 schools as queried earlier, the resulting survey scores are:
+
+H_ID	H_Name							Survey_Score	Survey_Consistency_Score
+050111  TEMPLE COMMUNITY HOSPITAL       			13      	13
+050561  KAISER FOUNDATION HOSPITAL - WEST LA    		17      	19
+050723  KAISER FOUNDATION HOSPITAL - BALDWIN PARK       	27      	20
+050732  FRESNO HEART AND SURGICAL HOSPITAL      		57      	20
+150165  FRANCISCAN HEALTHCARE - MUNSTER 			32      	20
+150175  THE HEART HOSPITAL AT DEACONESS GATEWAY LLC     	59      	20
+170186  KANSAS HEART HOSPITAL   				61      	20
+310031  DEBORAH HEART AND LUNG CENTER   			54      	20
+450851  BAYLOR HEART AND VASCULAR HOSPITAL      		64      	20
+670071  TEXAS HEALTH HEART & VASCULAR HOSPITAL ARLINGTON        50      	20
+
+It appears for the top 10 hospitals there is NOT a very strong correlation between high care scores and high survey scores. A number of the 
+top hospitals had terrible survey scores (Temple, Kaiser) despite having very high average care scores from earlier. 
+
+
+
+
+Top Hospital Score Variability vs Survey Score
+Survey Results for all hospitals participating in top 10 variable procedures:
+
+H_ID	Survey_Count	H_Count	Survey_Avg	Survey_Consistency_Avg	Procedure_Name
+OP_23   2805    	3785    25.22   	16.66   		Head CT Scan Results for Acute Ischemic Stroke or Hemorrhagic Stroke Patients who Received Head CT or MRI Scan Interpretation Within 45 Minutes of ED Arrival
+OP_20   2805    	3785    25.22   	16.66   		Median Time from ED Arrival to Provider Contact for ED patients
+ED_2b   2846    	4273    25.2    	16.65   		Admit Decision Time to ED Departure Time for Admitted Patients
+VTE_1   2846    	4273    25.2    	16.65   		Venous Thromboembolism Prophylaxis
+STK_8   2846    	4273    25.2    	16.65   		Stroke Education
+HF_1    2846    	4273    25.2    	16.65   		Discharge Instructions
+IMM_2   2846    	4398    25.2    	16.65   		Influenza Immunization
+STK_4   2846    	4273    25.2    	16.65   		Thrombolytic Therapy
+STK_1   2846    	4273    25.2    	16.65   		Venous Thromboembolism (VTE) Prophylaxis
+VTE_5   2846    	4273    25.2    	16.65   		Venous Thromboembolism Warfarin Therapy Discharge Instructions
+
+This was a confusing query. I wanted to grab all hospitals which participated in the procedure of question and then gather the average of the 
+overall survey results for those hospitals. While I think it is calculating properly, there appears to be no very little variation in the average
+scores and average consistency scores. I believe that this is because almost all hospitals participate in all 10 procedures with high variability,
+therefore the overall average score will be calculated off of the exact same hospitals. I tried many other ways to calculate this metric, but could
+not determine if I was simply calculating it incorrectly or if this is what the results truly say.
+
+In any case, it appears that the relatively low survey averages for each procedure DO correlate well with the lower average care scores and high variability
+we saw with the hospital_variability query. 
+
