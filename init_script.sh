@@ -12,7 +12,3 @@ cd ..
 cd transforming/
 chmod +x transform_to_ER.sql
 hive -f transform_to_ER.sql
-
-
-# boot up Spark SQL
-/data/spark15/bin/spark-sql
