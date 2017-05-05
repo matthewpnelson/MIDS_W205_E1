@@ -1,0 +1,53 @@
+-- Best Hospitals SQL query
+
+-- What hospitals are models of high-quality care? That is, which hospitals have the most consistently high scores for a variety of procedures.
+
+-- Tables to use: procedures_detail, hospital_edit, survey_averages_edit
+
+-- Selection Criteria:
+-- Grouping by Hospital, we want to see the highest average scores across all of their procedures.
+
+-- Also want to consider how many procedures they do, as a hospital could be very good at a small
+-- number of procedures by way of specialty. We are more interested in general excellence.
+
+-- An additional constraint is applied to keep the total variance between max and min scores
+-- to be below 20, as a very high average score doesn't mean consistency if there is at least one
+-- procedure that has been performed poorly at the hospital. 
+
+-- Scores relating to the emergency department were excluded from aggregation, as they went beyond the standard 0-100
+-- scale. 
+
+-- Focusing on only procedure care scores, not readmission scores as these are difficult 
+-- to compare to one another because high procedure care scores are good while low 
+-- readmissions scores (score / denominator) are good. A multi-filter could have occured
+-- between these two metrics, however it was decided not to pursue this for this assignment.
+
+-- Had to convert all of our number columns to INT before aggregating, used the cast() function.
+
+H_ID	H_Name							Total_Score	Avg_Score	Var_Score	Count_Procedures
+450851  BAYLOR HEART AND VASCULAR HOSPITAL      		1300    	100.0   	0       	13
+050111  TEMPLE COMMUNITY HOSPITAL       			1400    	100.0   	0       	14
+310031  DEBORAH HEART AND LUNG CENTER   			1393    	99.5    	5       	14
+670071  TEXAS HEALTH HEART & VASCULAR HOSPITAL ARLINGTON	1088    	98.91   	4      		11
+050723  KAISER FOUNDATION HOSPITAL - BALDWIN PARK       	2070    	98.57   	16      	21
+150165  FRANCISCAN HEALTHCARE - MUNSTER 			1671    	98.29   	13      	17
+150175  THE HEART HOSPITAL AT DEACONESS GATEWAY LLC     	1074    	97.64   	11      	11
+050732  FRESNO HEART AND SURGICAL HOSPITAL      		1365    	97.5    	20      	14
+050561  KAISER FOUNDATION HOSPITAL - WEST LA    		2032    	96.76   	20      	21
+170186  KANSAS HEART HOSPITAL   				1254    	96.46   	12      	13
+
+The hospitals which display a consistently high quality of care amoungst all their procedures are:
+BAYLOR HEART AND VASCULAR HOSPITAL
+TEMPLE COMMUNITY HOSPITAL
+DEBORAH HEART AND LUNG CENTER
+TEXAS HEALTH HEART & VASCULAR HOSPITAL ARLINGTON
+KAISER FOUNDATION HOSPITAL - BALDWIN PARK
+FRANCISCAN HEALTHCARE - MUNSTER
+THE HEART HOSPITAL AT DEACONESS GATEWAY LLC
+FRESNO HEART AND SURGICAL HOSPITAL
+KAISER FOUNDATION HOSPITAL - WEST LA
+KANSAS HEART HOSPITAL 
+, sorted by average score.
+
+If the selection criteria for consistency were set any tighter, say to a maximum variance of less than 15 points instead of 20
+we would see a list smaller than 10 hospitals suggesting that the list above is a good representation for high quality care.
